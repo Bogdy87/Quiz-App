@@ -1,64 +1,136 @@
-// This code runs when the page content is fully loaded
+const quizQuestions = [
+  {
+    id: 1,
+    question:
+      "What is the output of the following JavaScript code?\n\nconsole.log(typeof null);",
+    options: [
+      { text: "undefined", isCorrect: false },
+      { text: "null", isCorrect: false },
+      { text: "object", isCorrect: true },
+      { text: "string", isCorrect: false },
+    ],
+    explanation:
+      "The output of `typeof null` is 'object' because in JavaScript, `null` is considered an object type due to a bug in the original implementation of JavaScript.",
+  },
+  {
+    id: 2,
+    question: "Which of the following is a JavaScript framework?",
+    options: [
+      { text: "Django", isCorrect: false },
+      { text: "Flask", isCorrect: false },
+      { text: "Angular", isCorrect: true },
+      { text: "Laravel", isCorrect: false },
+    ],
+    explanation: "Angular is a JavaScript framework maintained by Google.",
+  },
+  {
+    id: 3,
+    question:
+      "What is the result of the following code?\n\nconsole.log(2 + '2');",
+    options: [
+      { text: "22", isCorrect: true },
+      { text: "4", isCorrect: false },
+      { text: "NaN", isCorrect: false },
+      { text: "undefined", isCorrect: false },
+    ],
+    explanation:
+      "In JavaScript, when a number is added to a string, the number is coerced into a string, resulting in string concatenation.",
+  },
+];
+
+let currentQuestionIndex = 0;
+
 document.addEventListener("DOMContentLoaded", function () {
-  const quizForm = document.getElementById("quizForm");
+  const quizContainer = document.getElementById("quizContainer");
+  const explanationDiv = document.getElementById("explanation");
 
-  quizForm.addEventListener("submit", function (event) {
-    event.preventDefault();
+  function displayQuiz() {
+    quizContainer.innerHTML = ""; // Clear previous content
+    explanationDiv.textContent = ""; // Clear previous explanation
 
-    // Get the question text
-    const question = document.getElementById("question").value;
+    const questionElement = document.createElement("h2");
+    questionElement.textContent = quizQuestions[currentQuestionIndex].question;
+    quizContainer.appendChild(questionElement);
 
-    // Get all the options and their correctness
-    const options = Array.from(
-      document.querySelectorAll('input[name="option"]')
-    ).map((input, index) => ({
-      text: input.value,
-      isCorrect: document.querySelector(
-        `input[name="correct"][value="${index}"]`
-      ).checked,
-    }));
+    quizQuestions[currentQuestionIndex].options.forEach((option, index) => {
+      const optionContainer = document.createElement("div");
+      optionContainer.classList.add("option-container");
 
-    // Create the quiz question object
-    const quizQuestion = {
-      id: Date.now(), // simple unique ID based on timestamp
-      question: question,
-      options: options,
-      explanation: "",
-    };
+      const radioInput = document.createElement("input");
+      radioInput.type = "radio";
+      radioInput.name = "quizOption";
+      radioInput.value = index;
+      radioInput.id = "option" + index;
 
-    // Output the quiz question object to console
-    console.log(quizQuestion);
-    alert("Quiz question created! Check console for output.");
-  });
+      const label = document.createElement("label");
+      label.htmlFor = "option" + index;
+      label.textContent = option.text;
 
-  // Add event listener to each radio button to update colors
-  document.querySelectorAll('input[name="correct"]').forEach((radio) => {
-    radio.addEventListener("change", updateColors);
-  });
+      optionContainer.appendChild(radioInput);
+      optionContainer.appendChild(label);
+      quizContainer.appendChild(optionContainer);
+    });
+  }
 
-  // Function to update colors of options based on correctness
-  function updateColors() {
+  function randomizeOptions() {
+    quizQuestions[currentQuestionIndex].options.sort(() => Math.random() - 0.5);
+    displayQuiz();
+  }
+
+  function previousQuestion() {
+    if (currentQuestionIndex > 0) {
+      currentQuestionIndex--;
+      displayQuiz();
+    }
+  }
+
+  function nextQuestion() {
+    if (currentQuestionIndex < quizQuestions.length - 1) {
+      currentQuestionIndex++;
+      displayQuiz();
+    }
+  }
+
+  function submitQuiz() {
+    const selectedOption = document.querySelector(
+      'input[name="quizOption"]:checked'
+    );
+
+    if (!selectedOption) {
+      explanationDiv.textContent = "Please select an answer.";
+      return;
+    }
+
+    const selectedIndex = parseInt(selectedOption.value);
+    const isCorrect =
+      quizQuestions[currentQuestionIndex].options[selectedIndex].isCorrect;
+
     document
-      .querySelectorAll('input[name="option"]')
-      .forEach((input, index) => {
-        input.classList.remove("correct", "wrong");
-        if (
-          document.querySelector(`input[name="correct"][value="${index}"]`)
-            .checked
-        ) {
-          input.classList.add("correct");
+      .querySelectorAll('input[name="quizOption"]')
+      .forEach((input, idx) => {
+        const parentDiv = input.parentElement;
+        if (quizQuestions[currentQuestionIndex].options[idx].isCorrect) {
+          parentDiv.classList.add("correct");
+          parentDiv.classList.remove("wrong");
         } else {
-          input.classList.add("wrong");
+          parentDiv.classList.add("wrong");
+          parentDiv.classList.remove("correct");
         }
       });
-  }
-});
 
-function randomizeOptions() {
-  const optionsContainer = document.getElementById("options");
-  const options = Array.from(optionsContainer.children);
-  for (let i = options.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    optionsContainer.appendChild(options[j]);
+    if (isCorrect) {
+      explanationDiv.textContent =
+        "Correct! " + quizQuestions[currentQuestionIndex].explanation;
+    } else {
+      explanationDiv.textContent =
+        "Wrong! " + quizQuestions[currentQuestionIndex].explanation;
+    }
   }
-}
+
+  displayQuiz();
+
+  window.randomizeOptions = randomizeOptions;
+  window.previousQuestion = previousQuestion;
+  window.nextQuestion = nextQuestion;
+  window.submitQuiz = submitQuiz;
+});

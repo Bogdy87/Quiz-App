@@ -4,42 +4,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Quiz Question Form</title>
+  <title>Quiz</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
-  <h1>QUIZ APP</h1>
-  <form id="quizForm">
-    <div class="quiz-header">
-      <label for="question">Question (max 140 characters):</label>
-      <input type="text" id="question" name="question" maxlength="140" required>
-      <br><br>
-      <div id="options">
-        <div>
-          <input type="radio" name="correct" value="0" required>
-          <input type="text" name="option" required>
-        </div>
-        <div>
-          <input type="radio" name="correct" value="1">
-          <input type="text" name="option" required>
-        </div>
-        <div>
-          <input type="radio" name="correct" value="2">
-          <input type="text" name="option" required>
-        </div>
-        <div>
-          <input type="radio" name="correct" value="3">
-          <input type="text" name="option" required>
-        </div>
-      </div>
-      <br>
-      <div class="buttons">
-        <button type="button" onclick="randomizeOptions()">Randomize Options</button>
-        <button type="submit">Submit</button>
-      </div>
-    </div>
-  </form>
+  <div id="quizContainer">
+    <!-- Quiz content will be dynamically inserted here -->
+  </div>
+
+  <div class="button-container">
+    <button type="button" onclick="previousQuestion()">Previous</button>
+    <button type="button" onclick="randomizeOptions()">Randomize Options</button>
+    <button type="button" onclick="nextQuestion()">Next</button>
+    <button type="button" onclick="submitQuiz()">Submit</button>
+  </div>
+  <div id="explanation"></div>
   <script src="/Script.js"></script>
 </body>
 

@@ -1,13 +1,7 @@
-imp
-
-* {
-  box-sizing: border-box;
-}
-
-body{
+body {
   background-color: #b8c6db;
   background-image: linear-gradient(315deg, #90b1e2 0%, #f5f7fa 100%);
-  font-family:'Roboto',sans-serif;
+  font-family: 'Roboto', sans-serif;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -17,52 +11,66 @@ body{
   margin: 0;
 }
 
-#quizForm {
-  background-color:#fff ;
-  border-radius: 10px;
-  box-shadow: 0 0 10px 2px rgba(100,100,100, 0.1);
-  width: 600px;
-  overflow: hidden;
+#quizContainer {
+  background-color: #f3f3f3;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  max-width: 600px;
+  width: 100%;
 }
- .quiz-header {
-  padding: 5rem;
- }
 
- .quiz-header label {
- font-size: 1rem;
- font-weight: bold;
- }
+h2 {
+  color: #333;
+}
 
- #options{
-  
+.option-container {
   display: flex;
-  flex-direction: column;
   align-items: center;
- }
- 
-input {
-  font-size: 0.9rem;
-  margin: 0.5rem 0;
-  border-style: double;
-}
-.buttons {
-  font-size: 1rem;
-  display: flex;
-  justify-content:center;
-  
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 4px;
+  transition: background-color 0.3s;
 }
 
-button{
-  margin: 0.5rem ;
-  background-color: #ba64df;
-  font-size: 1rem;
-  
+.option-container input {
+  margin-right: 10px;
+}
+
+.correct {
+  background-color: lightgreen;
+}
+
+.wrong {
+  background-color: lightcoral;
+}
+
+#explanation {
+  margin-top: 20px;
+  font-size: 18px;
+  font-weight: bold;
+  color: blue;
+  text-align: center;
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin: 0 5px;
+
 }
 
 button:hover {
-  background-color: #d781ff;
-  cursor: pointer;
-  color: #f5f7fa;
+  background-color: #0056b3;
 }
-.correct { background-color: lightgreen; }
-.wrong { background-color: lightcoral; }
