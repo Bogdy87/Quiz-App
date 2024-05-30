@@ -1,76 +1,89 @@
+
+
 body {
-  background-color: #b8c6db;
+  font-family: Arial, sans-serif;
   background-image: linear-gradient(315deg, #90b1e2 0%, #f5f7fa 100%);
-  font-family: 'Roboto', sans-serif;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  overflow: hidden;
+  background-color: #f4f4f4;
   margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
-#quizContainer {
-  background-color: #f3f3f3;
+.container {
+  background-color: #fff;
+  padding: 20px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  max-width: 600px;
   width: 100%;
+  max-width: 500px;
 }
 
 h2 {
+  text-align: center;
   color: #333;
 }
 
-.option-container {
+form {
   display: flex;
-  align-items: center;
-  margin: 10px 0;
-  padding: 10px;
-  border-radius: 4px;
-  transition: background-color 0.3s;
+  flex-direction: column;
 }
 
-.option-container input {
+label {
+  margin-bottom: 5px;
+  color: #555;
+}
+
+input[type="text"] {
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: calc(100% - 22px);
+}
+
+input[type="radio"] {
   margin-right: 10px;
 }
 
-.correct {
-  background-color: lightgreen;
-}
-
-.wrong {
-  background-color: lightcoral;
-}
-
-#explanation {
-  margin-top: 20px;
-  font-size: 18px;
-  font-weight: bold;
-  color: blue;
-  text-align: center;
-}
-
-.button-container {
+.option-group {
   display: flex;
-  justify-content: space-between;
-  margin-top: 20px;
+  align-items: center;
+  margin-bottom: 15px;
 }
 
+.option-group label {
+  margin: 0;
+  margin-left: 10px;
+}
+
+input[type="submit"],
 button {
   background-color: #007bff;
-  color: #fff;
+  color: white;
   border: none;
   padding: 10px 20px;
   border-radius: 4px;
   cursor: pointer;
-  transition: background-color 0.3s;
-  margin: 0 5px;
-
+  font-size: 16px;
+  transition: background-color 0.3s ease;
 }
 
+input[type="submit"]:hover,
 button:hover {
-  background-color: #0056b3;
+  background-color: #0ea70e;
+}
+
+.correct-answer {
+  background-color: #d4edda;
+  border-color: #c3e6cb;
+  color: #155724;
+}
+
+.wrong-answer {
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+  color: #721c24;
 }

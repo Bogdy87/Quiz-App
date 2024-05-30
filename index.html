@@ -4,23 +4,61 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Quiz</title>
+  <title>Quiz App</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
-  <div id="quizContainer">
-    <!-- Quiz content will be dynamically inserted here -->
+  <div class="container">
+    <h2>App Quiz</h2>
+
+    <form id="quizForm">
+      <label for="question">Add a question</label>
+      <input type="text" id="question" name="question" required>
+
+      <div class="option-group" id="option1">
+        <label for="answer1">1st answer</label>
+        <input type="text" id="answer1" name="answer1" required>
+        <input type="radio" id="correct" name="correct" value="answer1">
+        <label for="correct1">correct</label>
+      </div>
+
+      <div class="option-group" id="option2">
+        <label for="answer2">2nd answer</label>
+        <input type="text" id="answer2" name="answer2" required>
+        <input type="radio" id="correct" name="correct" value="answer2">
+        <label for="correct2">correct</label>
+      </div>
+
+      <div class="option-group" id="option3">
+        <label for="answer3">3rd answer</label>
+        <input type="text" id="answer3" name="answer3" required>
+        <input type="radio" id="correct" name="correct" value="answer3">
+        <label for="correct3">correct</label>
+      </div>
+
+      <div class="option-group" id="option4">
+        <label for="answer4">4th answer</label>
+        <input type="text" id="answer4" name="answer4" required>
+        <input type="radio" id="correct" name="correct" value="answer4">
+        <label for="correct4">correct</label>
+      </div>
+
+      <div class="buttons">
+        <input type="submit" value="Submit">
+        <button type="button" id="randomizeButton">Randomize</button>
+      </div>
+    </form>
   </div>
 
-  <div class="button-container">
-    <button type="button" onclick="previousQuestion()">Previous</button>
-    <button type="button" onclick="randomizeOptions()">Randomize Options</button>
-    <button type="button" onclick="nextQuestion()">Next</button>
-    <button type="button" onclick="submitQuiz()">Submit</button>
+  <div class="buttons">
+    <input type="text" id="searchInput" placeholder="Search questions...">
+    <button type="button" id="searchButton">Search</button>
   </div>
-  <div id="explanation"></div>
-  <script src="/Script.js"></script>
+
+  <div id="questionList" class="question-list"></div>
+
+  <script src="Script.js"></script>
 </body>
 
 </html>

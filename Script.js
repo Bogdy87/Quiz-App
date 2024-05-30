@@ -1,136 +1,102 @@
-const quizQuestions = [
-  {
-    id: 1,
-    question:
-      "What is the output of the following JavaScript code?\n\nconsole.log(typeof null);",
-    options: [
-      { text: "undefined", isCorrect: false },
-      { text: "null", isCorrect: false },
-      { text: "object", isCorrect: true },
-      { text: "string", isCorrect: false },
-    ],
-    explanation:
-      "The output of `typeof null` is 'object' because in JavaScript, `null` is considered an object type due to a bug in the original implementation of JavaScript.",
-  },
-  {
-    id: 2,
-    question: "Which of the following is a JavaScript framework?",
-    options: [
-      { text: "Django", isCorrect: false },
-      { text: "Flask", isCorrect: false },
-      { text: "Angular", isCorrect: true },
-      { text: "Laravel", isCorrect: false },
-    ],
-    explanation: "Angular is a JavaScript framework maintained by Google.",
-  },
-  {
-    id: 3,
-    question:
-      "What is the result of the following code?\n\nconsole.log(2 + '2');",
-    options: [
-      { text: "22", isCorrect: true },
-      { text: "4", isCorrect: false },
-      { text: "NaN", isCorrect: false },
-      { text: "undefined", isCorrect: false },
-    ],
-    explanation:
-      "In JavaScript, when a number is added to a string, the number is coerced into a string, resulting in string concatenation.",
-  },
-];
+const questions = [];
 
-let currentQuestionIndex = 0;
+document
+  .getElementById("quizForm")
+  .addEventListener("submit", function (event) {
+    event.preventDefault(); // Prevent form from submitting the traditional way
 
-document.addEventListener("DOMContentLoaded", function () {
-  const quizContainer = document.getElementById("quizContainer");
-  const explanationDiv = document.getElementById("explanation");
+    // Initialize the quizQuestion object empty
+    const quizQuestion = {
+      id: questions.length + 1, // Set this dynamically as needed
+      question: "",
+      options: [], // Initialize options as an empty array
+    };
 
-  function displayQuiz() {
-    quizContainer.innerHTML = ""; // Clear previous content
-    explanationDiv.textContent = ""; // Clear previous explanation
+    // Populate the quizQuestion object with form data
+    quizQuestion.question = document.getElementById("question").value;
 
-    const questionElement = document.createElement("h2");
-    questionElement.textContent = quizQuestions[currentQuestionIndex].question;
-    quizContainer.appendChild(questionElement);
+    const answers = [
+      { text: document.getElementById("answer1").value, id: "answer1" },
+      { text: document.getElementById("answer2").value, id: "answer2" },
+      { text: document.getElementById("answer3").value, id: "answer3" },
+      { text: document.getElementById("answer4").value, id: "answer4" },
+    ];
 
-    quizQuestions[currentQuestionIndex].options.forEach((option, index) => {
-      const optionContainer = document.createElement("div");
-      optionContainer.classList.add("option-container");
-
-      const radioInput = document.createElement("input");
-      radioInput.type = "radio";
-      radioInput.name = "quizOption";
-      radioInput.value = index;
-      radioInput.id = "option" + index;
-
-      const label = document.createElement("label");
-      label.htmlFor = "option" + index;
-      label.textContent = option.text;
-
-      optionContainer.appendChild(radioInput);
-      optionContainer.appendChild(label);
-      quizContainer.appendChild(optionContainer);
+    answers.forEach((answer) => {
+      const isCorrect = document.querySelector(
+        `input[name="correct"][value="${answer.id}"]`
+      ).checked;
+      quizQuestion.options.push({ text: answer.text, isCorrect: isCorrect });
     });
-  }
 
-  function randomizeOptions() {
-    quizQuestions[currentQuestionIndex].options.sort(() => Math.random() - 0.5);
-    displayQuiz();
-  }
+    // Add the new question to the questions array
+    questions.push(quizQuestion);
 
-  function previousQuestion() {
-    if (currentQuestionIndex > 0) {
-      currentQuestionIndex--;
-      displayQuiz();
-    }
-  }
+    // Log the object to the console (or handle it as needed)
+    console.log(quizQuestion);
 
-  function nextQuestion() {
-    if (currentQuestionIndex < quizQuestions.length - 1) {
-      currentQuestionIndex++;
-      displayQuiz();
-    }
-  }
+    // Display the updated list of questions
+    displayQuestions();
+  });
 
-  function submitQuiz() {
-    const selectedOption = document.querySelector(
-      'input[name="quizOption"]:checked'
-    );
+document
+  .getElementById("randomizeButton")
+  .addEventListener("click", function () {
+    const options = [
+      document.getElementById("answer1").parentElement,
+      document.getElementById("answer2").parentElement,
+      document.getElementById("answer3").parentElement,
+      document.getElementById("answer4").parentElement,
+    ];
 
-    if (!selectedOption) {
-      explanationDiv.textContent = "Please select an answer.";
-      return;
+    // Shuffle the options array
+    for (let i = options.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [options[i], options[j]] = [options[j], options[i]];
     }
 
-    const selectedIndex = parseInt(selectedOption.value);
-    const isCorrect =
-      quizQuestions[currentQuestionIndex].options[selectedIndex].isCorrect;
+    // Append the shuffled options back to the form
+    const form = document.getElementById("quizForm");
+    options.forEach((option) => {
+      form.insertBefore(option, document.querySelector(".buttons"));
+    });
+  });
 
-    document
-      .querySelectorAll('input[name="quizOption"]')
-      .forEach((input, idx) => {
-        const parentDiv = input.parentElement;
-        if (quizQuestions[currentQuestionIndex].options[idx].isCorrect) {
-          parentDiv.classList.add("correct");
-          parentDiv.classList.remove("wrong");
-        } else {
-          parentDiv.classList.add("wrong");
-          parentDiv.classList.remove("correct");
-        }
+document.getElementById("searchButton").addEventListener("click", function () {
+  const searchQuery = prompt("Enter search query:");
+  displayQuestions(searchQuery);
+});
+
+function displayQuestions(searchQuery = "") {
+  const questionList = document.getElementById("questionList");
+  questionList.innerHTML = "";
+
+  questions
+    .filter((question) => question.question.includes(searchQuery))
+    .forEach((question, index) => {
+      const questionItem = document.createElement("div");
+      questionItem.classList.add("question-item");
+
+      let optionsHtml = "";
+      question.options.forEach((option, i) => {
+        optionsHtml += `<p>Option ${i + 1}: ${option.text}</p>`;
       });
 
-    if (isCorrect) {
-      explanationDiv.textContent =
-        "Correct! " + quizQuestions[currentQuestionIndex].explanation;
-    } else {
-      explanationDiv.textContent =
-        "Wrong! " + quizQuestions[currentQuestionIndex].explanation;
-    }
-  }
+      questionItem.innerHTML = `
+        <p>Question ${index + 1}: ${question.question}</p>
+        ${optionsHtml}
+        <button onclick="revealAnswer(${index})">Reveal Answer</button>
+        <div id="answer${index}" class="answer"></div>
+      `;
 
-  displayQuiz();
+      questionList.appendChild(questionItem);
+    });
+}
 
-  window.randomizeOptions = randomizeOptions;
-  window.previousQuestion = previousQuestion;
-  window.nextQuestion = nextQuestion;
-  window.submitQuiz = submitQuiz;
-});
+function revealAnswer(index) {
+  const answerDiv = document.getElementById(`answer${index}`);
+  const correctOption = questions[index].options.find(
+    (option) => option.isCorrect
+  );
+  answerDiv.innerHTML = `<p class="correct-answer">Correct Answer: ${correctOption.text}</p>`;
+}
