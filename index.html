@@ -5,12 +5,20 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Quiz App</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
   <div class="container">
     <h2>App Quiz</h2>
+
+    <div id="playersInput">
+      <label for="player1">Player 1 Name:</label>
+      <input type="text" id="player1" name="player1" required>
+      <label for="player2">Player 2 Name:</label>
+      <input type="text" id="player2" name="player2" required>
+      <button id="startQuiz">Start Quiz</button>
+    </div>
 
     <form id="quizForm">
       <label for="question">Add a question</label>
@@ -58,7 +66,9 @@
 
   <div id="questionList" class="question-list"></div>
 
-  <script src="Script.js"></script>
+  <div id="scoreboard" class="scoreboard"></div>
+
+  <script src="script.js"></script>
 </body>
 
 </html>

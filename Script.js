@@ -1,5 +1,8 @@
 const questions = [];
+let players = [];
+let playerPoints = {};
 
+// Function to add a new quiz question
 document
   .getElementById("quizForm")
   .addEventListener("submit", function (event) {
@@ -39,6 +42,7 @@ document
     displayQuestions();
   });
 
+// Function to randomize options order
 document
   .getElementById("randomizeButton")
   .addEventListener("click", function () {
@@ -62,11 +66,65 @@ document
     });
   });
 
+// Function to start the quiz
+document.getElementById("startQuiz").addEventListener("click", function () {
+  const player1 = document.getElementById("player1").value;
+  const player2 = document.getElementById("player2").value;
+
+  if (player1.trim() === "" || player2.trim() === "") {
+    alert("Please enter names for both players.");
+    return;
+  }
+
+  players = [player1, player2];
+  playerPoints = {};
+  playerPoints[player1] = 0;
+  playerPoints[player2] = 0;
+
+  updateScoreboard();
+});
+
+// Function to update the scoreboard
+function updateScoreboard() {
+  const scoreboard = document.getElementById("scoreboard");
+  scoreboard.innerHTML = "<h2>Scoreboard</h2>";
+
+  players.forEach((player) => {
+    const playerElement = document.createElement("div");
+    playerElement.classList.add("player-item");
+    playerElement.innerHTML = `
+            <p>${player}: ${playerPoints[player]} points</p>
+            <button onclick="updatePoints('${player}', true)">Correct</button>
+            <button onclick="updatePoints('${player}', false)">Wrong</button>
+        `;
+    scoreboard.appendChild(playerElement);
+  });
+}
+
+// Function to update player points
+function updatePoints(player, isCorrect) {
+  if (isCorrect) {
+    playerPoints[player]++;
+  } else {
+    const otherPlayer = players.find((p) => p !== player);
+    playerPoints[otherPlayer]++;
+  }
+
+  updateScoreboard();
+
+  // Check if any player reached 10 points
+  if (playerPoints[player] >= 10 || playerPoints[otherPlayer] >= 10) {
+    alert(`${player} wins! Game Over.`);
+  }
+}
+
+// Event listener for search button
 document.getElementById("searchButton").addEventListener("click", function () {
-  const searchQuery = prompt("Enter search query:");
+  const searchQuery = document.getElementById("searchInput").value;
   displayQuestions(searchQuery);
 });
 
+// Function to display questions
 function displayQuestions(searchQuery = "") {
   const questionList = document.getElementById("questionList");
   questionList.innerHTML = "";
@@ -83,16 +141,17 @@ function displayQuestions(searchQuery = "") {
       });
 
       questionItem.innerHTML = `
-        <p>Question ${index + 1}: ${question.question}</p>
-        ${optionsHtml}
-        <button onclick="revealAnswer(${index})">Reveal Answer</button>
-        <div id="answer${index}" class="answer"></div>
-      `;
+                <p>Question ${index + 1}: ${question.question}</p>
+                ${optionsHtml}
+                <button onclick="revealAnswer(${index})">Reveal Answer</button>
+                <div id="answer${index}" class="answer"></div>
+            `;
 
       questionList.appendChild(questionItem);
     });
 }
 
+// Function to reveal correct answer
 function revealAnswer(index) {
   const answerDiv = document.getElementById(`answer${index}`);
   const correctOption = questions[index].options.find(
