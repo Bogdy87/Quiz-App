@@ -88,3 +88,11 @@ button:hover {
   color: #721c24;
   
 }
+
+#scoreboard{
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  width: 200px;
+  height: 120px;
+}
