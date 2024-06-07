@@ -2,7 +2,7 @@ const questions = [];
 let players = [];
 let playerPoints = {};
 
-// Function to add a new quiz question
+// Functions to add a new quiz question
 document
   .getElementById("quizForm")
   .addEventListener("submit", function (event) {

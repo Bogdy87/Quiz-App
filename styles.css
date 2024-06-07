@@ -68,7 +68,7 @@ button {
   border-radius: 4px;
   cursor: pointer;
   font-size: 16px;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.4s ease;
 }
 
 input[type="submit"]:hover,
@@ -86,4 +86,5 @@ button:hover {
   background-color: #f8d7da;
   border-color: #f5c6cb;
   color: #721c24;
+  
 }
