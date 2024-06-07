@@ -115,6 +115,9 @@ function updatePoints(player, isCorrect) {
   // Check if any player reached 10 points
   if (playerPoints[player] >= 10 || playerPoints[otherPlayer] >= 10) {
     alert(`${player} wins! Game Over.`);
+
+    const winSound = document.getElementById("winSound");
+    winSound.play();
   }
 }
 
@@ -158,4 +161,6 @@ function revealAnswer(index) {
     (option) => option.isCorrect
   );
   answerDiv.innerHTML = `<p class="correct-answer">Correct Answer: ${correctOption.text}</p>`;
+  const winSound = document.getElementById("winSound");
+  winSound.play();
 }
