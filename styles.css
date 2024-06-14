@@ -1,0 +1,101 @@
+
+
+body {
+  font-family: Arial, sans-serif;
+  background-image: linear-gradient(315deg, #90b1e2 0%, #f5f7fa 100%);
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.container {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 500px;
+}
+
+h2 {
+  text-align: center;
+  color: #333;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  margin-bottom: 5px;
+  color: #555;
+}
+
+input[type="text"] {
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 70%;
+  
+  
+  
+}
+
+input[type="radio"] {
+  margin-right: 10px;
+}
+
+.option-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.option-group label {
+  margin: 0;
+  margin-left: 10px;
+}
+
+input[type="submit"],
+button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.4s ease;
+}
+
+input[type="submit"]:hover,
+button:hover {
+  background-color: #0ea70e;
+}
+
+.correct-answer {
+  background-color: #d4edda;
+  border-color: #c3e6cb;
+  color: #155724;
+}
+
+.wrong-answer {
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+  color: #721c24;
+  
+}
+
+#scoreboard{
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  width: 200px;
+  height: 120px;
+}

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz-App</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <div class="container">
+    <h2>App Quiz</h2>
+
+    <div id="playersInput">
+      <label for="player1">Player 1 Name:</label>
+      <input type="text" id="player1" name="player1" required>
+      <label for="player2">Player 2 Name:</label>
+      <input type="text" id="player2" name="player2" required>
+      <button id="startQuiz">Start Quiz</button>
+    </div>
+
+    <form id="quizForm">
+      <label for="question">Add a question</label>
+      <input type="text" id="question" name="question" required>
+
+      <div class="option-group" id="option1">
+        <label for="answer1">1st answer</label>
+        <input type="text" id="answer1" name="answer1" required>
+        <input type="radio" id="correct" name="correct" value="answer1">
+        <label for="correct1">correct</label>
+      </div>
+
+      <div class="option-group" id="option2">
+        <label for="answer2">2nd answer</label>
+        <input type="text" id="answer2" name="answer2" required>
+        <input type="radio" id="correct" name="correct" value="answer2">
+        <label for="correct2">correct</label>
+      </div>
+
+      <div class="option-group" id="option3">
+        <label for="answer3">3rd answer</label>
+        <input type="text" id="answer3" name="answer3" required>
+        <input type="radio" id="correct" name="correct" value="answer3">
+        <label for="correct3">correct</label>
+      </div>
+
+      <div class="option-group" id="option4">
+        <label for="answer4">4th answer</label>
+        <input type="text" id="answer4" name="answer4" required>
+        <input type="radio" id="correct" name="correct" value="answer4">
+        <label for="correct4">correct</label>
+      </div>
+
+      <div class="buttons">
+        <input type="submit" value="Submit">
+        <button type="button" id="randomizeButton">Randomize</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="buttons">
+    <input type="text" id="searchInput" placeholder="Search questions...">
+    <button type="button" id="searchButton">Search</button>
+  </div>
+
+  <div id="questionList" class="question-list"></div>
+
+  <div id="scoreboard" class="scoreboard"></div>
+  <audio id="winSound" src="/mixkit-video-game-win-2016.wav" preload="auto"></audio>
+  <script src="script.js"></script>
+</body>
+
+</html>
