@@ -164,3 +164,37 @@ function revealAnswer(index) {
   const winSound = document.getElementById("winSound");
   winSound.play();
 }
+
+// Function to fetch quiz data
+async function fetchData() {
+  try {
+    const response = await fetch(
+      "https://raw.githubusercontent.com/Bogdy87/Bogdy87.github.io/main/data.json"
+    );
+    const data = await response.json();
+    // Process the data here
+    processData(data);
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  }
+}
+
+function processData(data) {
+  // Clear existing questions
+  questions.splice(0, questions.length);
+
+  // Assuming data.questions is the array of questions
+  data.questions.forEach((question) => {
+    const quizQuestion = {
+      id: question.id,
+      question: question.question,
+      options: question.options.map((option) => ({
+        text: option.text,
+        isCorrect: option.isCorrect,
+      })),
+    };
+    questions.push(quizQuestion);
+  });
+}
+// Call fetchData when the page loads
+window.addEventListener("DOMContentLoaded", fetchData);

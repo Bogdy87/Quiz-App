@@ -41,7 +41,10 @@ input[type="text"] {
   margin-bottom: 15px;
   border: 1px solid #ccc;
   border-radius: 4px;
-  width: calc(100% - 22px);
+  width: 70%;
+  
+  
+  
 }
 
 input[type="radio"] {
